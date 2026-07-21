@@ -1,84 +1,449 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Camp Adventure</title>
+
+<title>Camp Communication Quest</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #e8f0e5;
-    text-align: center;
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#e8f1e5;
+    text-align:center;
+}
+
+header {
+    background:#31572c;
+    color:white;
+    padding:25px;
 }
 
 h1 {
-    background: #31572c;
-    color: white;
-    padding: 25px;
+    margin:0;
 }
 
 .map {
-    padding: 30px;
+    padding:20px;
 }
 
-.camp {
-    background: white;
-    margin: 20px auto;
-    padding: 20px;
-    width: 250px;
-    border-radius: 15px;
-    box-shadow: 0px 3px 10px gray;
+.stop {
+    background:white;
+    margin:20px auto;
+    padding:20px;
+    width:85%;
+    max-width:400px;
+    border-radius:20px;
+    box-shadow:0 4px 10px #999;
+}
+
+.icon {
+    font-size:50px;
 }
 
 button {
-    background: #588157;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 10px;
-    font-size: 16px;
+    background:#588157;
+    color:white;
+    border:none;
+    padding:15px;
+    border-radius:10px;
+    font-size:16px;
 }
 
 button:hover {
-    background: #344e41;
+    background:#344e41;
 }
+
+
+#popup {
+    display:none;
+    position:fixed;
+    top:10%;
+    left:5%;
+    width:90%;
+    background:white;
+    padding:20px;
+    border-radius:20px;
+    box-shadow:0 5px 20px black;
+    z-index:10;
+}
+
+
+#progress {
+    width:90%;
+    height:20px;
+    background:#ddd;
+    margin:20px auto;
+    border-radius:20px;
+}
+
+#bar {
+    height:100%;
+    width:0%;
+    background:#4caf50;
+    border-radius:20px;
+}
+
 
 </style>
 
 </head>
 
+
 <body>
 
-<h1>🏕️ Camp Adventure Quest</h1>
+
+<header>
+
+<h1>🏕️ Camp Communication Quest</h1>
+
+<p>A Speech Sound Adventure</p>
+
+</header>
+
+
+<div id="progress">
+<div id="bar"></div>
+</div>
+
 
 <div class="map">
 
-<div class="camp">
-<h2>🔥 Campfire Circle</h2>
-<p>Welcome to the adventure!</p>
-<button onclick="alert('You found your first campsite!')">
-Enter
+
+<div class="stop">
+
+<div class="icon">🏕️</div>
+
+<h2>Base Camp</h2>
+
+<p>Meet your camper: Sam</p>
+
+<button onclick="openStop('base')">
+Enter Camp
 </button>
+
 </div>
 
 
-<div class="camp">
-<h2>🌲 Forest Trail</h2>
-<p>Complete your next challenge.</p>
-<button onclick="alert('Challenge unlocked!')">
+
+<div class="stop">
+
+<div class="icon">🔥</div>
+
+<h2>Campfire Circle</h2>
+
+<p>Gather information</p>
+
+<button onclick="openStop('history')">
 Explore
 </button>
+
 </div>
 
 
-<div class="camp">
-<h2>⛰️ Mountain Summit</h2>
-<p>You made it!</p>
-<button onclick="alert('You earned your Ranger Badge!')">
-Finish
+
+<div class="stop">
+
+<div class="icon">🛶</div>
+
+<h2>River Crossing</h2>
+
+<p>Choose your therapy path</p>
+
+<button onclick="openStop('therapy')">
+Cross River
 </button>
+
 </div>
+
+
+
+<div class="stop">
+
+<div class="icon">🌲</div>
+
+<h2>Forest Trail</h2>
+
+<p>Build your session</p>
+
+<button onclick="openStop('session')">
+Continue
+</button>
+
+</div>
+
+
+
+<div class="stop">
+
+<div class="icon">⛰️</div>
+
+<h2>Summit</h2>
+
+<p>Create the treatment plan</p>
+
+<button onclick="openStop('summit')">
+Finish Adventure
+</button>
+
+</div>
+
+
+
+</div>
+
+
+
+<div id="popup">
+
+<h2 id="title"></h2>
+
+<p id="content"></p>
+
+<button onclick="closePopup()">
+Return to Map
+</button>
+
+</div>
+
+
+
+
+<script>
+
+let completed=0;
+
+
+function openStop(place){
+
+let title="";
+let content="";
+
+
+if(place=="base"){
+
+title="🏕️ Meet Sam";
+
+content=
+`
+Sam is a 6-year-old kindergarten student referred for a speech sound disorder.
+
+<br><br>
+
+Parent report:
+"He knows what he wants to say, but people often ask him to repeat himself."
+
+<br><br>
+
+Teacher report:
+Sam sometimes avoids answering because peers cannot understand him.
+
+<br><br>
+
+Question:
+What information should we collect next?
+
+<br><br>
+
+✅ Speech sample<br>
+✅ Stimulability testing<br>
+✅ Classroom observation
+`;
+
+}
+
+
+if(place=="history"){
+
+title="🔥 Campfire Circle";
+
+content=
+`
+Speech sample:
+
+<br>
+
+rabbit → wabbit<br>
+fish → pish<br>
+thumb → fum<br>
+sun → tun<br>
+car → tar
+
+<br><br>
+
+Patterns:
+
+<br>
+🔥 Gliding<br>
+🔥 Stopping<br>
+🔥 Fronting
+
+<br><br>
+
+Challenge:
+
+Should we target every sound immediately?
+
+<br><br>
+
+Correct choice:
+Prioritize patterns based on developmental expectations, stimulability, and intelligibility.
+`;
+
+}
+
+
+
+if(place=="therapy"){
+
+title="🛶 River Crossing";
+
+content=
+`
+
+Choose the best therapy approach.
+
+<br><br>
+
+❌ Practice every error sound at once.
+
+<br><br>
+
+✅ Select meaningful targets that increase intelligibility.
+
+<br><br>
+
+Sam's plan:
+
+<br>
+• Target /k/ and /g/<br>
+• Add /f/<br>
+• Later address /r/
+
+<br><br>
+
+Approaches:
+Cycles + minimal pairs + structured practice
+
+`;
+
+}
+
+
+
+if(place=="session"){
+
+title="🌲 Forest Trail";
+
+content=
+`
+
+Build today's session:
+
+<br><br>
+
+🌱 Warm up:
+Auditory bombardment
+
+<br><br>
+
+🔥 Practice:
+Minimal pairs
+
+<br><br>
+
+🏕️ Challenge:
+Sentence level productions
+
+<br><br>
+
+🌄 Trail Talk:
+Conversation practice
+
+<br><br>
+
+Feedback:
+
+Instead of:
+"No, that's wrong"
+
+Try:
+"I heard /t/. Let's move your tongue back for /k/."
+
+`;
+
+}
+
+
+
+if(place=="summit"){
+
+title="⛰️ Summit Complete!";
+
+content=
+`
+
+🏆 Ranger Badge Earned!
+
+<br><br>
+
+Goal:
+
+Given verbal models and visual cues, Sam will produce /k/ and /g/ in words and sentences with 80% accuracy.
+
+<br><br>
+
+Track:
+
+✅ Accuracy
+
+<br>
+✅ Generalization
+
+<br>
+✅ Intelligibility
+
+<br>
+✅ Confidence
+
+<br><br>
+
+You completed the Communication Quest!
+
+`;
+
+}
+
+
+document.getElementById("title").innerHTML=title;
+
+document.getElementById("content").innerHTML=content;
+
+document.getElementById("popup").style.display="block";
+
+
+completed++;
+
+document.getElementById("bar").style.width=(completed*20)+"%";
+
+
+}
+
+
+function closePopup(){
+
+document.getElementById("popup").style.display="none";
+
+}
+
+
+</script>
+
+
+</body>
+</html>
 
 </div>
 
